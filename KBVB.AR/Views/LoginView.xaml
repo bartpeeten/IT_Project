@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KBVB.AR.Views.LoginView"
+             xmlns:converters="clr-namespace:KBVB.AR.Converters"
+             BindingContext="{Binding  Source={StaticResource ViewModelLocator}, Path=LoginViewModel}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry x:Name="EmailAddressEntry" Text="{Binding Email.Value}" Placeholder="Email"/>
+            <Label Text="{Binding Email.Errors, Converter={StaticResource FirstValidationErrorConverter}}" TextColor="Red" FontSize="Small"/>
+            <Entry x:Name="PasswordEntry" IsPassword="True" Text="{Binding Password.Value}" Placeholder="Password"/>
+            <Label Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}" TextColor="Red" FontSize="Small"/>
+            <Label x:Name="NotificationLabel" Text="{Binding User.Errors, Converter={StaticResource FirstValidationErrorConverter}}" TextColor="Red"/>
+            <Button x:Name="EmailButton" Command="{Binding SignInWithEmailCommand}" Text="Sign in with Email"/>
+            <Button x:Name="FacebookButton" Command="{Binding SignInWithFacebookCommand}" Text="Sign in with Facebook"/>
+            <Button x:Name="TwitterButton" IsVisible="false" Command="{Binding SignInWithTwitterCommand}" Text="Sign in with Twitter"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

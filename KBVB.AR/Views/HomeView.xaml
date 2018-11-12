@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+             x:Class="KBVB.AR.Views.HomeView"
+             Title="Home"
+             BindingContext="{Binding  Source={StaticResource ViewModelLocator}, Path=HomeViewModel}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Gallery" Order="Primary" Priority="0" Command="{Binding NavigateToGalleryCommand}">Gallery</ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".9*"/>
+                <RowDefinition Height=".1*"/>
+            </Grid.RowDefinitions>               
+            <controls:CarouselViewControl
+                x:Name="CarouselView"
+                Orientation="Horizontal"
+                InterPageSpacing="0"
+                ShowIndicators="true"
+                ItemsSource="{Binding PlayersList}"
+                Position="{Binding Path=Index, Mode=TwoWay}"
+                Grid.Row="0">
+            <controls:CarouselViewControl.ItemTemplate>
+                <DataTemplate>
+                    <!--If you want to customize the data template you can do it here:-->
+
+                        <AbsoluteLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0 , 0 , 1 , 1">
+                            <Image Source="{Binding ImageUrl}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".1,.1,1,.8"/>
+                           
+
+                            <Label Text="{Binding Name}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,.9,.8,.1"/>
+                            <Button x:Name="InfoButton" Image="infoButton.png" AbsoluteLayout.LayoutFlags="All" Command="{Binding InfoCommand}" BindingContext="{Binding  Source={StaticResource ViewModelLocator}, Path=HomeViewModel}" CommandParameter="{Binding .}" 
+                            TextColor="Black" FontSize="20" AbsoluteLayout.LayoutBounds=".8,.9,.2,.1">
+                            </Button>
+                        </AbsoluteLayout>
+
+                    </DataTemplate>
+            </controls:CarouselViewControl.ItemTemplate>
+            </controls:CarouselViewControl>
+
+            <StackLayout Grid.Row="1">
+               
+            
+                <Button x:Name="SelectButton" Command="{Binding SelectCommand}" Text="Select" 
+                                TextColor="Black" FontSize="20" Margin="0, 0, 0, 0"/>
+            </StackLayout>
+                
+        </Grid>
+
+
+
+        
+    </ContentPage.Content>
+    
+</ContentPage>

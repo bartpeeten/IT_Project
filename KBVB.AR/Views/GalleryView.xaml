@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+             xmlns:local="clr-namespace:KBVB.AR.Services"
+             x:Class="KBVB.AR.Views.GalleryView"
+             BindingContext="{Binding Source={StaticResource ViewModelLocator}, Path=GalleryViewModel}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Icon="sharewhite.png" Command="{Binding ShareCommand}" IsEnabled="{Binding SharingEnabled}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".8*"/>
+                    <RowDefinition Height=".2*"/>
+                </Grid.RowDefinitions>
+                <controls:CarouselViewControl Grid.Row="0"
+                Orientation="Horizontal"
+                InterPageSpacing="0"
+                ShowIndicators="true"
+                ItemsSource="{Binding MyPictures}"
+                Position="{Binding Path=Index, Mode=TwoWay}">
+                <controls:CarouselViewControl.ItemTemplate>
+                    <DataTemplate>
+                        <!--If you want to customize the data template you can do it here:-->
+                        <StackLayout
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand">
+                            <Image Source="{Binding ImageUrl}" WidthRequest="200" HeightRequest="200" Margin="0,50,0,0"/>
+
+                        </StackLayout>
+                    </DataTemplate>
+                </controls:CarouselViewControl.ItemTemplate>
+
+            </controls:CarouselViewControl>
+            <local:CarouselIndicators Grid.Row="1" IndicatorHeight="32" IndicatorWidth="32" UnselectedIndicator="{Binding MySelectedPicture.ImageUrl}" SelectedIndicator="{Binding MySelectedPicture.ImageUrl}" Position="{Binding Index, Mode=TwoWay}" ItemsSource="{Binding MyPictures}" />
+
+        </Grid>
+        
+
+
+
+        <!-- 
+
+       <StackLayout>
+            <ListView ItemsSource="{Binding MyPictures}" SelectedItem="{Binding MySelectedPicture}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell ImageSource="{Binding ImageUrl}"/>
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Text="Share" Command="{Binding ShareCommand}" IsEnabled="{Binding SharingEnabled}"/>
+        </StackLayout>-->
+    </ContentPage.Content>
+</ContentPage>
